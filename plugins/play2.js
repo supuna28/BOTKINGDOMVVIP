@@ -162,7 +162,7 @@ handler.help = ['song'].map(v => v + ' <query>')
 
 handler.tags = ['downloader']
 
-handler.command = /^(dj|songg|play|lagu|p(d)?)$/i
+handler.command = /^(dj|song|play|yt|p(d)?)$/i
 
 handler.exp = 3
 
