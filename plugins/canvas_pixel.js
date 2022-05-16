@@ -1,0 +1,37 @@
+const Canvacord = require('canvacord')
+const uploadImage = require('../lib/uploadImage') 
+const { sticker } = require('../lib/sticker')
+const { MessageType } = require('@adiwajshing/baileys')
+
+let handler = async (m, { conn, text }) => {
+  let q = m.quoted ? m.quoted : m
+  let mime = (q.msg || q).mimetype || ''
+  if (!mime) throw 'රිප්ලයි imh #8bit'
+  try {
+  if (!/image\/(jpe?g|png)/.test(mime)) throw `img එක වලන්ගු නොවෙ use #8Bit`
+let image = await q.download()
+
+Canvacord.Canvas.pixelate(image)
+  .then(async buffer => {
+ conn.sendMessage(m.chat,{image:buffer}, { quoted: m, caption: '*Free Fire RTX On!!*'})
+  }) 
+ } catch (e) {
+   m.reply('Error')
+//m.reply(`${e}`)
+  }
+}
+handler.help = ['pixel']
+handler.tags = ['filter']
+handler.command = /^8bit|pixel|pixelate$/i
+handler.owner = false
+handler.mods = false
+handler.premium = false
+handler.group = false
+handler.private = false
+
+handler.admin = false
+handler.botAdmin = false
+
+handler.fail = null
+
+module.exports = handler
